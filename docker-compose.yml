@@ -1,0 +1,44 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./back_myrh
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./front_myrh
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+
+  database:
+    image: mysql:8
+    ports:
+    - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: '0000'
+      MYSQL_DATABASE: 'myrh'
+      MYSQL_USER: 'user_myrh'
+      MYSQL_PASSWORD: '0000'
+    volumes:
+    - mysql_data:/var/lib/mysql
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:
+
+
+
+
+
+
+
+
+
+
+
